@@ -9,13 +9,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createMaterialTopTabNavigator} from "react-navigation-tabs";
 
 import OneTaskComponent from "./src/components/MyTaskComponent";
+import OneProject from "./src/components/OneProjectComponent";
 
 class App extends React.Component {
   render() {
     return (
         <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
             <StatusBar backgroundColor={'black'} />
-            <Footer />
+            <ScreensApp />
         </SafeAreaView>
     );
   };
@@ -92,10 +93,17 @@ class ProjectsScreen extends React.Component {
     };
   render() {
     return (
-        <View style={styles.container}>
-          <Text>PROJECTS SCREEN</Text>
+        <ScrollView>
+            <View style={styles.container}>
+              <Text>PROJECTS SCREEN</Text>
+                <OneProject />
+                <OneProject />
+                <OneProject />
+                <OneProject />
+                <OneProject />
 
-        </View>
+            </View>
+        </ScrollView>
     );
   };
 }
@@ -161,7 +169,7 @@ const TabNavigator = createMaterialTopTabNavigator (
       navigationOptions: {
           title: 'Task',
           tabBarLabel:'Task',
-          tabBarIcon: ({tintColor}) => (<Icon name='tasks' size={25} color={tintColor}/>)
+          tabBarIcon: ({tintColor}) => (<Icon name='pencil' size={25} color={tintColor}/>)
       }},
 },
 
@@ -193,7 +201,7 @@ const TabNavigator = createMaterialTopTabNavigator (
     }
 );
 
-const Footer = createAppContainer (TabNavigator);
+const ScreensApp = createAppContainer (TabNavigator);
 
 
 const styles = StyleSheet.create({
