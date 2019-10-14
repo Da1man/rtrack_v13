@@ -2,16 +2,31 @@
 import React from 'react';
 import {StyleSheet, View, Text, StatusBar, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import { createAppContainer } from "react-navigation";
-// import { createBottomTabNavigator } from "react-navigation-tabs";
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import { Icon } from 'react-native-elements'
-// import { createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 import { createMaterialTopTabNavigator} from "react-navigation-tabs";
+import {w, h} from './constants'
 
 import OneTaskComponent from "./src/components/MyTaskComponent";
 import OneProject from "./src/components/OneProjectComponent";
+import TaskListComponent from "./src/components/TaskListComponent";
+import SearchableDropdown from 'react-native-searchable-dropdown'
+
+var items = [
+    //name key is must.It is to show the text in front
+    { id: 1, name: 'angellist' },
+    { id: 2, name: 'codepen' },
+    { id: 3, name: 'envelope' },
+    { id: 4, name: 'etsy' },
+    { id: 5, name: 'facebook' },
+    { id: 6, name: 'foursquare' },
+    { id: 7, name: 'github-alt' },
+    { id: 8, name: 'github' },
+    { id: 9, name: 'gitlab' },
+    { id: 10, name: 'instagram' },
+];
 
 class App extends React.Component {
+
   render() {
     return (
         <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
@@ -37,7 +52,6 @@ class MyTasksScreen extends React.Component {
                         taskName={'Теги адоба, вкладка digitalData'}
                         taskLink={()=> this.props.navigation.navigate('Task')}
                         taskStatus={'В работе'}
-
                     />
                     <OneTaskComponent
                         projectName={'Общие срочные задачи'}
@@ -95,13 +109,52 @@ class ProjectsScreen extends React.Component {
     return (
         <ScrollView>
             <View style={styles.container}>
-              <Text>PROJECTS SCREEN</Text>
-                <OneProject />
-                <OneProject />
-                <OneProject />
-                <OneProject />
-                <OneProject />
+                <View style={styles.projectListTopBar}>
+                    <Text>PROJECTS LIST TOP BAR</Text>
+                </View>
+                <OneProject projectName={'CoreClass - Корпоративный сайт'}
+                            openedTasks={35}
+                            myOpenedTasks={12}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={true}
+                />
+                <OneProject projectName={'Чистая линия Chistaya linia Pureline unite'}
+                            openedTasks={35}
+                            myOpenedTasks={12}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={true}
+                />
 
+                <OneProject projectName={'Unite / Camay - Поддержка'}
+                            openedTasks={3}
+                            myOpenedTasks={2}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={false}
+                />
+                <OneProject projectName={'ЗАДАЧИ БЕЗ ПРОЕКТА'}
+                            openedTasks={61}
+                            myOpenedTasks={7}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={false}
+                />
+                <OneProject projectName={'Общие срочные задачи'}
+                            openedTasks={39}
+                            myOpenedTasks={2}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={false}
+                />
+                <OneProject projectName={'Unite / Odeon - разработка'}
+                            openedTasks={19}
+                            myOpenedTasks={18}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={false}
+                />
+                <OneProject projectName={'Affect / Big Bon'}
+                            openedTasks={0}
+                            myOpenedTasks={0}
+                            projectLink={()=> this.props.navigation.navigate('TaskList')}
+                            favorite={false}
+                />
             </View>
         </ScrollView>
     );
@@ -109,33 +162,171 @@ class ProjectsScreen extends React.Component {
 }
 
 class TaskListScreen extends React.Component {
-    static navigationOptions = {
-        gesturesEnabled: true
-    };
     render() {
         return (
-            <View style={styles.container}>
-                <Text>TASK LIST SCREEN</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Task')} >
-                    <Text>GO TO TASK</Text>
-                </TouchableOpacity>
+            <ScrollView>
+                <View style={styles.taskListContainer}>
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={135}
+                        taskName={'Спам на почту'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'В работе'}
+                    />
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={134}
+                        taskName={'Расположение блока Клиенты'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'Сделан'} />
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={133}
+                        taskName={'При добавлении партнера некорректно происходит разграничение рядов'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'Сделан'}/>
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={130}
+                        taskName={'Поставить ограничение на загружаемый файл 15 мб'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'Выложен'}/>
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={128}
+                        taskName={'Ссылка на хеадхантер из админки'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'Выложен'}/>
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={127}
+                        taskName={'Сделать, чтобы после загрузки файла исчезала полоса загрузки'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'Выложен'} />
+                    <TaskListComponent
+                        projectName={'CoreClass - корпоративный сайт'}
+                        taskNumber={126}
+                        taskName={'Форма Вакансии. Валидации'}
+                        taskLink={()=> this.props.navigation.navigate('Task')}
+                        taskStatus={'OK'} />
 
-            </View>
+                </View>
+            </ScrollView>
         );
     };
 }
 
 class OneTaskScreen extends React.Component {
-    static navigationOptions = {
-        gesturesEnabled: true
-    };
+    constructor() {
+        super();
+        this.state = {
+            serverData: [],
+            //Data Source for the SearchableDropdown
+        };
+    }
     render() {
         return (
             <View style={styles.container}>
                 <Text>TASK SCREEN</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()} >
+                <TouchableOpacity onPress={() => this.props.navigation.goBack(null)} >
                     <Text>GO BACK</Text>
+
                 </TouchableOpacity>
+
+                <View style={{ flex: 1, marginTop: 30 }}>
+                    <Text style={{ marginLeft: 10 }}>
+                        Searchable Dropdown from Static Array
+                    </Text>
+                    <SearchableDropdown
+                        onTextChange={text => console.log(text)}
+                        //On text change listner on the searchable input
+                        onItemSelect={item => alert(JSON.stringify(item))}
+                        //onItemSelect called after the selection from the dropdown
+                        containerStyle={{ padding: 5 }}
+                        //suggestion container style
+                        textInputStyle={{
+                            //inserted text style
+                            padding: 12,
+                            borderWidth: 1,
+                            borderColor: '#ccc',
+                            backgroundColor: '#FAF7F6',
+                        }}
+                        itemStyle={{
+                            //single dropdown item style
+                            padding: 10,
+                            marginTop: 2,
+                            backgroundColor: '#FAF9F8',
+                            borderColor: '#bbb',
+                            borderWidth: 1,
+                        }}
+                        itemTextStyle={{
+                            //text style of a single dropdown item
+                            color: '#222',
+                        }}
+                        itemsContainerStyle={{
+                            //items container style you can pass maxHeight
+                            //to restrict the items dropdown hieght
+                            maxHeight: '60%',
+                        }}
+                        items={items}
+                        //mapping of item array
+                        defaultIndex={2}
+                        //default selected item index
+                        placeholder="placeholder"
+                        //place holder for the search input
+                        resetValue={false}
+                        //reset textInput Value with true and false state
+                        underlineColorAndroid="transparent"
+                        //To remove the underline from the android input
+                    />
+                    <Text style={{ marginLeft: 10 }}>
+                        Searchable Dropdown from Dynamic Array from Server
+                    </Text>
+                    <SearchableDropdown
+                        onTextChange={text => console.log(text)}
+                        //On text change listner on the searchable input
+                        onItemSelect={item => alert(JSON.stringify(item))}
+                        //onItemSelect called after the selection from the dropdown
+                        containerStyle={{ padding: 5 }}
+                        //suggestion container style
+                        textInputStyle={{
+                            //inserted text style
+                            padding: 12,
+                            borderWidth: 1,
+                            borderColor: '#ccc',
+                            backgroundColor: '#FAF7F6',
+                        }}
+                        itemStyle={{
+                            //single dropdown item style
+                            padding: 10,
+                            marginTop: 2,
+                            backgroundColor: '#FAF9F8',
+                            borderColor: '#bbb',
+                            borderWidth: 1,
+                        }}
+                        itemTextStyle={{
+                            //text style of a single dropdown item
+                            color: '#222',
+                        }}
+                        itemsContainerStyle={{
+                            //items container style you can pass maxHeight
+                            //to restrict the items dropdown hieght
+                            maxHeight: '50%',
+                        }}
+                        items={this.state.serverData}
+                        //mapping of item array
+                        defaultIndex={2}
+                        //default selected item index
+                        placeholder="placeholder"
+                        //place holder for the search input
+                        resetValue={false}
+                        //reset textInput Value with true and false state
+                        underlineColorAndroid="transparent"
+                        //To remove the underline from the android input
+                    />
+                </View>
+
+
             </View>
         );
     };
@@ -212,7 +403,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
     myTasksContainer: {
-      flex: 1,
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    projectListTopBar:{
+      height: 40,
+        width: w,
+        borderBottomColor: '#e23e34',
+        borderBottomWidth: 1,
+        flex: 1,
+    },
+    taskListContainer: {
+        flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
     }
